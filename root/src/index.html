@@ -14,9 +14,7 @@
     </responsive-child>
 
     <script src="app.js" async></script>
-    <% if (json.project.production) { %>
-    <%= !json.project.embedded ? t.include("partials/_foot.html") : "" %>
-    <%= t.include("partials/_workHere.html") %>
-    <% } %>
+    <%= t.include("partials/_foot.html") %>
+    <%= t.include("partials/_helloSFC.html") %>
   </body>
 </html>

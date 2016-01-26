@@ -1,4 +1,4 @@
-Seattle Times News App Template
+SF Chronicle News App Template
 ===============================
 
 What is it?
@@ -16,7 +16,7 @@ development server with watch tasks and live reload to make rapid development
 easy as pie.
 
 *Executive summary:* Provides everything you need to start building a
-news app for the Seattle Times (or anywhere else).
+news app for the SF Chronicle.
 
 Installation
 ------------
@@ -32,7 +32,7 @@ following command:
 
 .. code:: sh
 
-    git clone git@github.com:seattletimes/newsapp-template newsapp
+    git clone git@github.com:sfchronicle/newsapp-template newsapp
 
 (We want to clone into the "newsapp" folder so that we can run
 ``grunt-init newsapp`` and not ``grunt-init newsapp-template``.)
@@ -244,7 +244,7 @@ Where does everything go?
     │   ├── css
     │   │   └── seed.less
     │   ├── index.html
-    │   ├── partials - directory containing Seattle Times boilerplate
+    │   ├── partials - directory containing SF Chronicle boilerplate
     │   └── js
     │       ├── main.js
     │       └── lib - directory for Bower, ST site modules
