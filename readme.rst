@@ -47,7 +47,7 @@ folder for your project, open a shell there, and type:
 
 .. code:: sh
 
-    grunt-init newsapp
+    grunt-init newsapp-template
 
 The scaffolding wizard will ask you to fill in some information, such as
 your name, the name of the project, a description. Once that's done,
