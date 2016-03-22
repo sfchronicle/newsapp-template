@@ -6,15 +6,20 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" type="text/css" href="style.css">
     <%= t.include("partials/_head.html") %>
+    <%= t.include("partials/_hearstAnalytics.html") %>
   </head>
   <body>
 
+    <%= t.include("partials/_nav.html") %>
+
     <responsive-child>
-      <!-- content goes here -->
+      <p>Content goes here...</p>
     </responsive-child>
 
+    <%= t.include("partials/_footer.html") %>
+
     <script src="app.js" async></script>
-    <%= t.include("partials/_foot.html") %>
     <%= t.include("partials/_helloSFC.html") %>
+    
   </body>
 </html>
