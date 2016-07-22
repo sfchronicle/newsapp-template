@@ -10,10 +10,10 @@
     <%= t.include("partials/_analytics_hearst.html") %>
   </head>
   <script>  var HDN = HDN || {}  </script>
+
   <body>
 
     <%= t.include("partials/_nav.html") %>
-
     <responsive-child>
 
       <div class="title-container">
@@ -87,8 +87,10 @@
 
     </responsive-child>
 
+    <%= t.include("partials/_footer.html") %>
+
     <script src="app.js" async></script>
-    <%= t.include("partials/_foot.html") %>
     <%= t.include("partials/_helloSFC.html") %>
+
   </body>
 </html>

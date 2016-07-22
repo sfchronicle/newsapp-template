@@ -1,0 +1,37 @@
+<!-- Begin Hearst analytics -->
+<script type="text/javascript">
+    var hash = window.location.hash;
+    if (hash == "#part2") {
+      var omni_channelPath = "News :: Special Report";
+      var omni_title = "Rising Reality: Shoring up the city's edge";
+      var omni_className = "channel";
+      var omni_publicationDate = "2016-07-08 00:01:00";
+      var omni_authorName = "John King";
+      var omni_authorTitle = "San Francisco Chronicle staff";
+    } else if (hash == "#part1"|| hash == "" ) {
+      var omni_channelPath = "News :: Special Report";
+      var omni_title = "Rising reality: Bay Area's future depends on managing rising sea levels";
+      var omni_className = "channel";
+      var omni_publicationDate = "2016-05-23 00:01:00";
+      var omni_authorName = "John King";
+      var omni_authorTitle = "San Francisco Chronicle staff";
+    }
+</script>
+<!-- Hearst analytics: Ensighten -->
+<script type="text/javascript">
+  (function(e) {
+    var t = '//nexus.ensighten.com/hearst/news/Bootstrap.js';
+    if (e.cookie.indexOf("nsghtn") > -1) {
+      if(e.cookie.indexOf("nsghtn=test-dev") > -1) {
+      console.log("Ensighten :: Test-Dev"); t = "//nexus-test.ensighten.com/hearst/news-dev/Bootstrap.js";
+      } else if(e.cookie.indexOf("nsghtn=test") > -1) {
+      console.log("Ensighten :: Test"); t = "//nexus-test.ensighten.com/hearst/news/Bootstrap.js";
+      } else if(e.cookie.indexOf("nsghtn=dev") > -1) {
+      console.log("Ensighten :: Dev"); t = "//nexus.ensighten.com/hearst/news-dev/Bootstrap.js";
+      }
+    }
+    e.write("<scr"+"ipt src='"+e.location.protocol+t+"'></scr"+"ipt>");
+  })(document);
+</script>
+<!-- End Hearst analytics: Ensighten -->
+<!-- End Hearst analytics -->

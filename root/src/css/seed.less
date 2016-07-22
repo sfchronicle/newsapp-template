@@ -39,7 +39,7 @@ p {
 
   a {
     text-decoration: none;
-    color: $red;
+    color: @red;
   }
 
   @media @mobile {
@@ -193,13 +193,13 @@ li {
 
 .navigation {
   width: 100%;
-  font-family: $banner;
+  font-family: @banner;
   // text-transform: uppercase;
   font-size: 18px;
 }
 
 header {
-  background: $header;
+  background: @header;
   overflow: visible;
   opacity: 0.9;
   a {
@@ -213,7 +213,7 @@ header {
 }
 
 .menu-icon{
-  background: $link;
+  background: @link;
   padding: 11px 19px 10px 15px;
 }
 
@@ -226,7 +226,7 @@ header {
 }
 
 .jump-navigation {
-  background: $header;
+  background: @header;
   text-align: center;
   margin: auto;
   width: inherit;
@@ -243,7 +243,7 @@ header {
     text-decoration:none;
   }
   color: white;
-  @media #{$mobile} {
+  @media @mobile {
     font-size: 20px;
   }
 }
@@ -272,7 +272,7 @@ header {
   &.special {
 
     a {
-      color: $gray-blue;
+      color: @gray-blue;
     }
   }
   &.social {
@@ -299,15 +299,15 @@ header {
 }
 
 #sticky-element.sticky {
-  -webkit-box-shadow: 0 0 6px 0 $dark-gray;
-  -moz-box-shadow: 0 0 6px 0 $dark-gray;
-  box-shadow: 0 0 6px 0 $dark-gray;
+  -webkit-box-shadow: 0 0 6px 0 @dark-gray;
+  -moz-box-shadow: 0 0 6px 0 @dark-gray;
+  box-shadow: 0 0 6px 0 @dark-gray;
   z-index: 100;
   position: fixed;
   top: 0;
   margin-top: 0px;
   text-align: left;
-  @media #{$mobile} {
+  @media @mobile {
     top: unset;
     bottom: 0;
     font-size: 14px;
@@ -317,9 +317,9 @@ header {
 }
 
 header {
-  -webkit-box-shadow: 0 0 6px 0 $dark-gray;
-  -moz-box-shadow: 0 0 6px 0 $dark-gray;
-  box-shadow: 0 0 6px 0 $dark-gray;
+  -webkit-box-shadow: 0 0 6px 0 @dark-gray;
+  -moz-box-shadow: 0 0 6px 0 @dark-gray;
+  box-shadow: 0 0 6px 0 @dark-gray;
 
   a {
     text-decoration:none;
@@ -333,13 +333,13 @@ header {
        vertical-align: text-bottom;
        width:180px;
       }
-      @media #{$mobile} {
+      @media @mobile {
         display: none;
       }
   }
   .mobile-logo {
     display: none;
-     @media #{$mobile} {
+     @media @mobile {
        display: inline;
      }
     img {
@@ -375,7 +375,7 @@ header {
   .caption{
     padding:0;
 
-      @media #{$text-width}{
+      @media #{@text-width}{
         padding:0 10px;
       }
   }
