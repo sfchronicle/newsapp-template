@@ -16,11 +16,20 @@
 @black: #191919;
 @dark-blue: #395272;
 @redlinks: #EC1C24;
+@header: #fff;
+@link: #6C85A5;
+@bg-color: #fff;
+
+@base-font: 21px;
+@line-height: 1.58;
+@black: #333;
 
 body {
-  font-family: @block-graphics;
-  max-width: 900px;
-  margin: auto;
+  background-color: @bg-color;
+  font-size: @base-font;
+  line-height:@line-height;
+  color: @black;
+  font-family: @body;
 }
 
 a {
@@ -54,6 +63,19 @@ li {
   @media @mobile {
     margin: 0 5px;
   }
+}
+
+hr{
+  margin-top:2em;
+  border-top: 1px solid #ccc;
+  border-bottom: none;
+  width: 75%;
+}
+
+.max{
+  max-width:900px;
+  margin:0 auto;
+  padding:0 12px;
 }
 
 .divider-div {
@@ -129,9 +151,28 @@ li {
   }
 }
 
+// credits ----------------------------------------------
+
+.credits {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 10px;
+  text-align: center;
+  font-size: 15px;
+  font-family: @body;
+  width: 80%;
+  @media @mobile {
+    width: 100%;
+  }
+  .entry {
+    padding-bottom: 10px;
+  }
+}
+
 // heading styles ---------------------------------------
 
 .title-container {
+  background-image: url("../assets/social/dont-miss-sealevel1.jpg");
 
   &.top-margin {
     margin-top: 3.5em;
@@ -173,8 +214,9 @@ li {
 
 .special-head {
   color: @gray-blue;
-  font-family: @body-bold;
-  font-size: 16px;
+  font-family: @banner;
+  font-size: 18px;
+  text-transform: uppercase;
 }
 
 .specialhead {
@@ -375,7 +417,7 @@ header {
   .caption{
     padding:0;
 
-      @media #{@text-width}{
+      @media @text-width{
         padding:0 10px;
       }
   }
