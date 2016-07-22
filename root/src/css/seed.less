@@ -78,13 +78,6 @@ hr{
   padding:0 12px;
 }
 
-.divider-div {
-  border-bottom: 1px @df-border-gray solid;
-  width: 90%;
-  margin: auto;
-  margin-bottom: 10px;
-}
-
 .hed {
   font-weight: bold;
   font-size: 20px;
@@ -148,6 +141,35 @@ hr{
   }
   &.padded {
     padding-bottom: 40px;
+  }
+}
+
+// footer -------------------------------------------
+
+footer {
+  background: @df-charcoal;
+  opacity: 0.95;
+  padding: 0 10px;
+  position: relative;
+  z-index: 99;
+  margin-top: 10px;
+  clear:both;
+
+  .logo {
+    float: left;
+    margin-right: 10px;
+
+    img {
+      padding: 10px 0;
+      width: 180px;
+      vertical-align: bottom;
+    }
+  }
+
+  &::after {
+    clear: both;
+    content: " ";
+    display: block;
   }
 }
 
@@ -301,9 +323,8 @@ header {
 
 .link {
   padding: 5px 10px 7px;
-  font-size:16px;
+  font-size: 18px;
   font-family: @body;
-  vertical-align: text-bottom;
   cursor: pointer;
 
   &.active {
@@ -312,7 +333,6 @@ header {
   }
 
   &.special {
-
     a {
       color: @gray-blue;
     }
@@ -321,6 +341,9 @@ header {
     float: right;
     margin: 0 6px;
     padding: 4px 2px;
+    a {
+      color: @gray-blue;
+    }
   }
 }
 .logo-link {
@@ -400,6 +423,44 @@ header {
 
 
 // photo styles ----------------------------------------
+
+.caption {
+  text-align: left;
+  font-family: @body;
+  font-size: 12px;
+  margin-top: 5px;
+  padding: 0 10px;
+  max-width: 100%;
+  &.landing {
+    margin-bottom: 2.5em;
+  }
+  .year {
+    font-family:@banner;
+    color:@red;
+  }
+}
+
+.byline {
+  color: #6D6D6D;
+  font-style: italic;
+}
+
+.background-img {
+    height: 800px;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    display: block;
+    z-index: 1;
+
+    @media @mobile {
+      height: 640px;
+    }
+}
+
+.overview {
+  background-image: url("../assets/social/dont-miss-sealevel1.jpg");
+}
 
 .full-width-img {
   margin: 2em auto;
