@@ -37,7 +37,7 @@ a {
 }
 
 a:hover {
-  color: @gray-blue;
+  color: darken(@gray-blue,10%);
 }
 
 p {
@@ -48,7 +48,7 @@ p {
 
   a {
     text-decoration: none;
-    color: @red;
+    color: @gray-blue;
   }
 
   @media @mobile {
@@ -201,6 +201,23 @@ footer {
   }
 }
 
+.author {
+    margin-top: 10px;
+    font-size: 15px;
+    text-align: center;
+    margin-bottom:0;
+
+    a {
+      color:#fff;
+      border-bottom:1px solid #ccc;
+    }
+}
+.date {
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
 .title {
   font-family: @body-bold;
   font-size: 60px;
@@ -234,11 +251,15 @@ footer {
   right: 0;
 }
 
-.special-head {
+.specialhead-top {
   color: @gray-blue;
   font-family: @banner;
   font-size: 18px;
   text-transform: uppercase;
+  @media @mobile {
+    font-size: 13px;
+    vertical-align: text-top;
+  }
 }
 
 .specialhead {
@@ -255,11 +276,13 @@ footer {
 
 // sticky navigation bar -------------------------------
 
-.navigation {
+.fixed {
+  position: fixed;
+  top: 0;
   width: 100%;
-  font-family: @banner;
-  // text-transform: uppercase;
-  font-size: 18px;
+  z-index: 99;
+  left: 0;
+  height: 37px;
 }
 
 header {
@@ -269,56 +292,6 @@ header {
   a {
     color: #333;
   }
-}
-
-.menu-btn {
-  line-height: 1;
-  float:right;
-}
-
-.menu-icon{
-  background: @link;
-  padding: 11px 19px 10px 15px;
-}
-
-.menu-icon:after{
-  height:3px;
-}
-.menu-icon:hover::after {
-    background: #fff;
-    box-shadow: 0 7px 0 #fff, 0 14px 0 #fff;
-}
-
-.jump-navigation {
-  background: @header;
-  text-align: center;
-  margin: auto;
-  width: inherit;
-  height: 40px;
-  margin-top: 5px;
-  &.clicked {
-    display: none;
-  }
-}
-
-.jump-links {
-  a {
-    color: #CECECE;
-    text-decoration:none;
-  }
-  color: white;
-  @media @mobile {
-    font-size: 20px;
-  }
-}
-
-.jump-navigation {
-  display: none;
-  &.sticky {
-    display: inline;
-  }
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .link {
@@ -354,31 +327,9 @@ header {
     height: 20px;
   }
 }
-.subscribe {
-  float: right;
-  // margin-right: 10px;
-}
 
 .link, .logo-link {
   display: inline-block;
-}
-
-#sticky-element.sticky {
-  -webkit-box-shadow: 0 0 6px 0 @dark-gray;
-  -moz-box-shadow: 0 0 6px 0 @dark-gray;
-  box-shadow: 0 0 6px 0 @dark-gray;
-  z-index: 100;
-  position: fixed;
-  top: 0;
-  margin-top: 0px;
-  text-align: left;
-  @media @mobile {
-    top: unset;
-    bottom: 0;
-    font-size: 14px;
-    vertical-align: bottom;
-  }
-
 }
 
 header {
