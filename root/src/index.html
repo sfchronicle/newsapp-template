@@ -5,12 +5,86 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <%= t.include("partials/_head.html") %>
+    <%= t.include("partials/_analytics_hearst.html") %>
   </head>
+  <script>  var HDN = HDN || {}  </script>
   <body>
 
+    <%= t.include("partials/_nav.html") %>
+
     <responsive-child>
-      <!-- content goes here -->
+
+      <div class="title-container">
+    		<div class="background-img overview">
+    		    <div class="dim"></div>
+    			<div class="over-img">
+    				<p class="specialhead">Chronicle Investigation</p>
+    				<h1 class="title long">Title title title</h1>
+    				<p class="author">By Author Author</a></p>
+    				<p class="date">Month DD, YYYY</p>
+    			</div>
+    		</div>
+    	</div>
+
+      <p class="caption landing">Caption.<span class="byline"> Person Person, Special to The Chronicle</span></p>
+
+
+      <div class="divider">
+      </div>
+
+      <div class="credits">
+        <div class="entry">Reporter:  <br>Name Name &bull; <a href="mailto:nname@sfchronicle.com">nname@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/namenamename" target="_blank">@namenamename</a></div>
+        <div class="entry">Interactive producers:  <br>Emma O'Neill  &bull; <a href="mailto:eoneill@sfchronicle.com">eoneill@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/emmaruthoneill" target="_blank">@emmaruthoneill</a>
+        <br>Benjamin Din  &bull; <a href="mailto:bdin@sfchronicle.com">bdin@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/benjamindin" target="_blank">@benjamindin</a>
+        <br>Lucio Villa  &bull; <a href="mailto:lvilla@sfchronicle.com">lvilla@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/luciovilla" target="_blank">@luciovilla</a></div>
+      </div>
+
+      <div class="divider">
+      </div>
+
+      <div class="dont-miss">
+        <div class="story">
+          <div class="padded">
+          <a href="http://projects.sfchronicle.com/sf-homeless/" target="_blank">
+            <img src="./assets/dont-miss-homeless.jpg"></img>
+          </a>
+            <div class="small">Beyond homelessness</div>
+          </div>
+        </div>
+        <div class="story">
+          <div class="padded">
+          <a href="http://projects.sfchronicle.com/2016/visas/" target="_blank">
+            <img src="./assets/dont-miss-visas.png"></img>
+          </a>
+            <div class="small">H-1B visas: who gets them, where they go</div>
+          </div>
+        </div>
+        <div class="story">
+          <div class="padded">
+          <a href="http://projects.sfchronicle.com/2016/teacher-pay/" target="_blank">
+            <img src="./assets/dont-miss-teacherpay.jpg"></img>
+          </a>
+            <div class="small">Teachers struggle to stay in SF</div>
+          </div>
+        </div>
+        <div class="story">
+          <div class="padded">
+          <a href="http://projects.sfchronicle.com/2016/living-with-aids/" target="_blank">
+            <img src="./assets/aids_special.png"></img>
+          </a>
+            <div class="small">Living with AIDS</div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <a class="logo" href="http://www.sfchronicle.com" target="_blank">
+          <img src="./assets/logos/sf_logo_white.png">
+        </a>
+      </footer>
+
     </responsive-child>
 
     <script src="app.js" async></script>

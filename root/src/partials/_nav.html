@@ -1,13 +1,33 @@
-<nav class="main-nav">
+<header class="fixed">
+  <div class="navigation">
 
-  <div class="wrapper">
-
-    <a class="logo" href="http://sfchronicle.com">
-      <img src="assets/sf_logo_black.svg">
+    <a href="http://www.sfchronicle.com" target="_blank">
+      <div class="logo-link link">
+          <img src="http://projects.sfchronicle.com/shared/logos/sfletter_c_black.png">
+        </div>
     </a>
 
-    <a class="share top"></a>
+    <div class="link">
+      <a class="special-head" href="http://www.google.com">Special Report</a>
+    </div>
+
+    <div class="link social">
+      <a id="mail-icon" title="Share via email" href="mailto:?subject={{title|urlencode}}&body={{description|urlencode}}%0A%0Ahttp%3A%2F%2Fprojects.sfchronicle.com%2F2016%2F">
+        <i class="fa fa-envelope" aria-hidden="true"></i>
+      </a>
+    </div>
+
+    <div class="link social">
+      <a id="facebook-icon" title="Share on Facebook" href="#" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fprojects.sfchronicle.com%2F2016%2F', 'facebook-share-dialog', 'width=626,height=436'); return false;">
+        <i class="fa fa-facebook"></i>
+      </a>
+    </div>
+
+    <div class="link social">
+      <a id="twitter-icon" title="Share on Twitter" href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fprojects.sfchronicle.com%2F2016%2F&text={{twitter_text|urlencode}}&hashtags={{config.HASHTAG}}">
+        <i class="fa fa-twitter"></i>
+      </a>
+    </div>
 
   </div>
-
-</nav>
+</header>
