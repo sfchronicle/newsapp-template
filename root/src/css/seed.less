@@ -16,16 +16,15 @@
 @black: #191919;
 @dark-blue: #395272;
 @redlinks: #EC1C24;
-@header: #fff;
-@link: #6C85A5;
-@bg-color: #fff;
+@dark-gray: #fff;
+@light-gray: #ccc;
 
 @base-font: 21px;
 @line-height: 1.58;
 @black: #333;
 
 body {
-  background-color: @bg-color;
+  background-color: @dark-gray;
   font-size: @base-font;
   line-height:@line-height;
   color: @black;
@@ -42,7 +41,7 @@ a:hover {
 
 hr{
   margin-top:2em;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid @light-gray;
   border-bottom: none;
   width: 75%;
 }
@@ -223,8 +222,8 @@ footer {
     margin-bottom:0;
 
     a {
-      color:#fff;
-      border-bottom:1px solid #ccc;
+      color:@dark-gray;
+      border-bottom:1px solid @light-gray;
     }
 }
 .date {
@@ -301,7 +300,7 @@ footer {
 }
 
 header {
-  background: @header;
+  background: @dark-gray;
   overflow: visible;
   opacity: 0.9;
   a {
@@ -317,7 +316,7 @@ header {
 
   &.active {
     background: #a2a2a2;
-    color: #fff;
+    color: @dark-gray;
   }
 
   &.special {
@@ -399,10 +398,6 @@ header {
   max-width: 100%;
   &.landing {
     margin-bottom: 2.5em;
-  }
-  .year {
-    font-family:@banner;
-    color:@red;
   }
 }
 
