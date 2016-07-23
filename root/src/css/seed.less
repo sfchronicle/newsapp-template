@@ -18,6 +18,9 @@
 @redlinks: #EC1C24;
 @dark-gray: #fff;
 @light-gray: #ccc;
+@active-link: #a2a2a2;
+@head-color: #9bb5d8;
+@rename-color: #6D6D6D;
 
 @base-font: 21px;
 @line-height: 1.58;
@@ -220,11 +223,6 @@ footer {
     font-size: 15px;
     text-align: center;
     margin-bottom:0;
-
-    a {
-      color:@dark-gray;
-      border-bottom:1px solid @light-gray;
-    }
 }
 .date {
     font-size: 15px;
@@ -279,7 +277,7 @@ footer {
 .specialhead {
   text-align: center;
   text-transform: uppercase;
-  color: #9bb5d8;
+  color: @head-color;
   font-family: @banner;
   font-size: 15px;
   margin-bottom: 0;
@@ -304,7 +302,7 @@ header {
   overflow: visible;
   opacity: 0.9;
   a {
-    color: #333;
+    color: @black;
   }
 }
 
@@ -315,7 +313,7 @@ header {
   cursor: pointer;
 
   &.active {
-    background: #a2a2a2;
+    background: @active-link;
     color: @dark-gray;
   }
 
@@ -331,6 +329,9 @@ header {
     a {
       color: @gray-blue;
     }
+  }
+  &.email {
+    margin-right: 10px;
   }
 }
 .logo-link {
@@ -402,7 +403,7 @@ header {
 }
 
 .byline {
-  color: #6D6D6D;
+  color: @rename-color;
   font-style: italic;
 }
 
