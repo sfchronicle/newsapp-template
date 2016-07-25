@@ -16,7 +16,7 @@
 @black: #191919;
 @dark-blue: #395272;
 @redlinks: #EC1C24;
-@dark-gray: #fff;
+@white: #fff;
 @light-gray: #ccc;
 @active-link: #a2a2a2;
 @head-color: #9bb5d8;
@@ -27,7 +27,7 @@
 @black: #333;
 
 body {
-  background-color: @dark-gray;
+  background-color: @white;
   font-size: @base-font;
   line-height:@line-height;
   color: @black;
@@ -147,7 +147,7 @@ li {
   clear: left;
   padding-top: 10px;
   font-size: 12px;
-  color: @dark-gray;
+  color: @white;
   font-style: italic;
   font-family: @block-graphics;
   @media @tablet {
@@ -297,15 +297,6 @@ footer {
   height: 37px;
 }
 
-header {
-  background: @dark-gray;
-  overflow: visible;
-  opacity: 0.9;
-  a {
-    color: @black;
-  }
-}
-
 .link {
   padding: 5px 10px 7px;
   font-size: 18px;
@@ -348,6 +339,9 @@ header {
 }
 
 header {
+  background: @white;
+  overflow: visible;
+  opacity: 0.9;
   -webkit-box-shadow: 0 0 6px 0 @dark-gray;
   -moz-box-shadow: 0 0 6px 0 @dark-gray;
   box-shadow: 0 0 6px 0 @dark-gray;
