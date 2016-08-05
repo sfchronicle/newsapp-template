@@ -1,4 +1,3 @@
-// require("./lib/social");
+require("./lib/social"); //Do not delete
 
 
-require("component-responsive-frame/child");

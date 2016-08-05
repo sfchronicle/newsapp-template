@@ -1,20 +1,14 @@
 {
-  "s3": {
-    "stage": {
-      "bucket": "",
-      "path": ""
-    },
-    "live": {
-      "bucket": "",
-      "path": ""
-    }
-  },
   "title": "",
   "description": "",
-  "url": "",
-  "slug": "",
-  "tags": [],
-  "image": "http://www.sfchronicle.com/img/pages/article/opengraph_default.jpg",
+  "author":"",
+  "hearst_category":"",
+  "date":"2016-09-22",
+  "url": "http://projects.sfchronicle.com/2016/",
+  "slug": "SLUG-HERE-WITH-TRAILING-SLASH/",
+  "twitter_text":"",
+  "hashtag":"",
+  "image": "assets/social.jpg",
   "sheets": [],
   "production": false,
   "embedded": true

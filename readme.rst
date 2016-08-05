@@ -47,7 +47,7 @@ folder for your project, open a shell there, and type:
 
 .. code:: sh
 
-    grunt-init newsapp-template
+    grunt-init newsapp
 
 The scaffolding wizard will ask you to fill in some information, such as
 your name, the name of the project, a description. Once that's done,
@@ -229,7 +229,7 @@ Where does everything go?
 
 ::
 
-    ├── auth.json - authentication information for S3 and other endpoints
+    ├── auth.json - authentication information for Google Sheets and other endpoints
     ├── build
     │   ├── assets
     │   ├── app.js
@@ -247,7 +247,7 @@ Where does everything go?
     │   ├── partials - directory containing SF Chronicle boilerplate
     │   └── js
     │       ├── main.js
-    │       └── lib - directory for Bower, ST site modules
+    │       └── lib - directory for Bower, SF site modules
     └── tasks - All Grunt tasks
         ├── build.js
         ├── bundle.js
@@ -261,7 +261,6 @@ Where does everything go?
         ├── loadJSON.js
         ├── loadSheets.js
         ├── markdown.js
-        ├── publish.js
         ├── state.js
         └── watch.js
 

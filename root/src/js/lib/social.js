@@ -1,51 +1,44 @@
-var Share = require("./share.min.js");
+// Twitter Intent
+(function() {
+  if (window.__twitterIntentHandler) return;
+  var intentRegex = /twitter\.com\/intent\/(\w+)/,
+      windowOptions = 'scrollbars=yes,resizable=yes,toolbar=no,location=yes',
+      width = 550,
+      height = 420,
+      winHeight = screen.height,
+      winWidth = screen.width;
 
-var addQuery = function(url, query) {
-  var joiner = url.indexOf("?") > -1 ? "&" : "?";
-  return url + joiner + query;
-};
+  function handleIntent(e) {
+    e = e || window.event;
+    var target = e.target || e.srcElement,
+        m, left, top;
 
-var utm = function(source, medium) {
-  return `utm_source=${source}&utm_medium=${medium || "social"}&utm_campaign=projects`;
-};
+    while (target && target.nodeName.toLowerCase() !== 'a') {
+      target = target.parentNode;
+    }
 
-var makeShare = function(selector, position, url) {
+    if (target && target.nodeName.toLowerCase() === 'a' && target.href) {
+      m = target.href.match(intentRegex);
+      if (m) {
+        left = Math.round((winWidth / 2) - (width / 2));
+        top = 0;
 
-  var here = url || window.location.href;
+        if (winHeight > height) {
+          top = Math.round((winHeight / 2) - (height / 2));
+        }
 
-  var config = {
-    ui: {
-      flyout: position || "bottom left"
-    },
-    networks: {
-      google_plus: {
-        url: addQuery(here, utm("google+"))
-      },
-      twitter: {
-        url: addQuery(here, utm("twitter"))
-      },
-      facebook: {
-        url: addQuery(here, utm("facebook"))
-      },
-      pinterest: {
-        url: addQuery(here, utm("pinterest"))
+        window.open(target.href, 'intent', windowOptions + ',width=' + width +
+                                           ',height=' + height + ',left=' + left + ',top=' + top);
+        e.returnValue = false;
+        e.preventDefault && e.preventDefault();
       }
     }
-  };
+  }
 
-  var s = new Share(selector, config);
-
-  s.config.networks.email.description += " " + addQuery(here, utm("email_share", "email"));
-
-  return s;
-};
-
-var top = makeShare(".share.top");
-var bottom = makeShare(".share.bottom", "top left");
-
-module.exports = {
-  Share,
-  makeShare,
-  utm,
-  buttons: [top, bottom]
-}
+  if (document.addEventListener) {
+    document.addEventListener('click', handleIntent, false);
+  } else if (document.attachEvent) {
+    document.attachEvent('onclick', handleIntent);
+  }
+  window.__twitterIntentHandler = true;
+}());
