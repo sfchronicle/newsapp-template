@@ -12,5 +12,5 @@
   "image": "assets/social.jpg",
   "sheets": [],
   "production": false,
-  "embedded": true
+  "embedded": false
 }

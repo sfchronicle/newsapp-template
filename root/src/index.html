@@ -7,17 +7,16 @@
     <meta name="__sync_contentCategory" content="meterA">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="http://projects.sfchronicle.com/shared/js/jquery.min.js"></script>
 
-    <script type="text/javascript" src="http://treg.hearstnp.com/treg.js"></script>
-    <script type="text/javascript" src="http://www.sfchronicle.com/js/hdn/omniture/syncronex.js"></script>
-    <script type="text/javascript" src="https://syncaccess-hst-sfc.syncronex.com/hst/sfc/api/scripts/syncwall"></script>
+    <!-- scripts for stand-alone projects, comment for embedded projects -->
+    <%= !json.project.embedded ? t.include("partials/_paywall.html") : t.include("partials/_embedframe.html") %>
+    <!-- also replace <body> with <body is="responsive-body"> -->
 
     <%= t.include("partials/_head.html") %>
-    <%= t.include("partials/_analytics.html") %>
+
   </head>
 
-  <body>
+  <%= !json.project.embedded ? "<body>" : "<body is='reponsive-body'>" %>
 
     <%= t.include("partials/_nav.html") %>
 
