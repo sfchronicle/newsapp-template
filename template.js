@@ -11,10 +11,11 @@ exports.template = function(grunt, init, done) {
     init.prompt("author_name"),
     init.prompt("app_name", here),
     init.prompt("app_description"),
+    init.prompt("embed",false),
     init.prompt("github_repo", "sfchronicle/" + here)
   ], function(err, props) {
     //add environment variables, dynamic properties
-    
+
     var root = init.filesToCopy(props);
     init.copyAndProcess(root, props, { noProcess: "src/assets/**" });
     grunt.file.mkdir("data");

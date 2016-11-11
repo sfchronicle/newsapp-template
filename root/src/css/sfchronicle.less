@@ -1,6 +1,3 @@
-@import "values";
-@import "flexbox";
-
 //defensive coding
 * {
   //border-box, you're the best
@@ -19,6 +16,12 @@ body {
   margin: 0;
   //remove 300ms click delay in Safari, AKA still the worst
   touch-action: manipulation;
+
+  background-color: @white;
+  font-size: @base-font;
+  line-height:@line-height;
+  color: @black;
+  font-family: @body;
 }
 
 main {
@@ -39,25 +42,12 @@ a {
   img {
     border: none;
   }
+  :hover {
+    color: darken(@gray-blue,10%);
+  }
 }
 
-body {
-  background-color: @white;
-  font-size: @base-font;
-  line-height:@line-height;
-  color: @black;
-  font-family: @body;
-}
-
-a {
-  color: @gray-blue;
-}
-
-a:hover {
-  color: darken(@gray-blue,10%);
-}
-
-hr{
+hr {
   margin-top:2em;
   border-top: 1px solid @light-gray;
   border-bottom: none;
@@ -176,51 +166,26 @@ li {
   }
 }
 
-// footer -------------------------------------------
-
-footer {
-  background: @df-charcoal;
-  opacity: 0.95;
-  padding: 0 10px;
-  position: relative;
-  z-index: 99;
-  margin-top: 10px;
-  clear:both;
-
-  .logo {
-    float: left;
-    margin-right: 10px;
-
-    img {
-      padding: 10px 0;
-      width: 180px;
-      vertical-align: bottom;
-    }
-  }
-
-  &::after {
-    clear: both;
-    content: " ";
-    display: block;
+svg {
+  display: block;
+  margin: auto;
+  @media @mobile {
+    margin: 0;
   }
 }
-
-// credits ----------------------------------------------
-
-.credits {
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 10px;
-  text-align: center;
-  font-size: 15px;
-  font-family: @body;
-  width: 80%;
+text {
+  font-size: 14px;
+  font-family: @block-graphics;
   @media @mobile {
-    width: 100%;
+    font-size: 12px;
   }
-  .entry {
-    padding-bottom: 10px;
-  }
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: grey;
+  stroke-width: 1;
+  shape-rendering: crispEdges;
 }
 
 // heading styles ---------------------------------------
@@ -574,356 +539,49 @@ header {
   }
 }
 
-//line graph ------------------------------------------------
+// footer -------------------------------------------
 
-svg {
-  display: block;
-  margin: auto;
-  @media @mobile {
-    margin: 0;
-  }
-}
-text {
-  font-size: 14px;
-  font-family: @block-graphics;
-  @media @mobile {
-    font-size: 12px;
-  }
-}
+footer {
+  background: @df-charcoal;
+  opacity: 0.95;
+  padding: 0 10px;
+  position: relative;
+  z-index: 99;
+  margin-top: 10px;
+  clear:both;
 
-#timing_lines, #timing-lines {
-  path {
-      stroke-width: 1;
-      fill: none;
-  }
-  .line {
-    stroke: rgb(31, 119, 180);
-    opacity: 0.6;
-  }
-  .elevationprofile {
-    opacity: 1;
-    fill: @light-gray;
-    stroke: none;
-  }
+  .logo {
+    float: left;
+    margin-right: 10px;
 
-}
-
-.axis path,
-.axis line {
-    fill: none;
-    stroke: grey;
-    stroke-width: 1;
-    shape-rendering: crispEdges;
-}
-
-#bubble-graph {
-  .dot {
-    cursor: pointer;
-  }
-}
-
-#age-distribution, #pace-line-chart, #timing-lines {
-
-  .pacepath {
-    fill:none;
-    stroke-width:3;
-    stroke: #61988E;
-  }
-
-  .line {
-    // stroke: #D13D59;
-    stroke-width: 2;
-    opacity: 1;
-    fill: none;
-    &.line-hover {
-      stroke-width: 4;
+    img {
+      padding: 10px 0;
+      width: 180px;
+      vertical-align: bottom;
     }
   }
 
-}
-
-#timing-lines {
-  .line {
-    // stroke: #D13D59;
-    stroke-width: 1;
-    opacity: 0.6;
-    fill: none;
-    &.line-hover {
-      opacity: 1;
-      stroke-width: 4;
-    }
+  &::after {
+    clear: both;
+    content: " ";
+    display: block;
   }
 }
 
-#age-distribution-bars {
-  .pacepath2 {
-    fill:none;
-    stroke-width:3;
-    stroke: #FFCC32;//#61988E;
-  }
-}
+// credits ----------------------------------------------
 
-.voronoi, .voronoiMilePace, .voronoipath {
-   path {
-    fill: none;
-    pointer-events: all;
-  }
-}
-
-.elevationprofile {
-  opacity: 1;
-  fill: @light-gray;
-  stroke: none;
-}
-
-.tooltip, .bar_tooltip {
-  font-size: 14px;
-  font-family: @block-graphics;
+.credits {
+  max-width: 900px;
+  margin: 30px auto;
   padding: 10px;
-  border-radius: 3px;
-  background: lighten(@light-gray,20%);
-  border: 1px @dark-gray solid;
-}
-
-@bars: rgb(31, 119, 180);
-@line: #FFCC32;
-@men: rgb(31, 119, 180);
-@women: #D13D59;
-@overall: #FFCC32;
-@fast: #9E0A26;
-@avg: #D13D59;
-@slow: #FF708C;
-@fastmen: #004481;
-@avgmen: #1F77B4;
-@slowmen: #52AAE7;
-@gender: #996B7D;
-@origin: #61988E;
-@sfrunners: #1F77B4;//#E59FA6;//#9C8B9E;//#80A9D0;
-@foreign: #FFCC32;
-@men-gray: #6C85A5;
-
-.legend {
-  font-size: 12px;
-  font-family: @block-graphics;
-  border: 1px solid @black;
-  border-radius: 6px;
-  width: 250px;
-  margin: auto;
-  margin-bottom: 10px;
+  text-align: center;
+  font-size: 15px;
+  font-family: @body;
+  width: 80%;
   @media @mobile {
-    margin-bottom: 15px;
+    width: 100%;
   }
-  &.fastslow {
-    width: 400px;
-    border: 0;
-  }
-  .fast, .slow, .avg {
-    display: inline-block;
-    width: 120px;
-  }
-  padding: 5px;
-  .men-swath, .women-swath, .overall-swath, .line-swath, .bars-swath {
-    height: 14px;
-    width: 14px;
-    //margin: 4px auto;
-    margin-left: 10px;
-    margin-bottom: 5px;
-  }
-   .men-swath {
-    margin-top: 5px;
-    background: @men;
-  }
-  .women-swath {background: @women;}
-  .overall-swath {background: @overall;}
-  .bars-swath {background: @bars;}
-  .line-swath {background: @line;}
-  .legend-text {
-    width: 250px;
-    padding-left: 20px;
-    vertical-align: text-top;
-  }
-  .legend-text-animated {
-    text-align: center;
-    padding: 3px;
-    border-radius: 3px;
-    cursor: pointer;
-    opacity: 0.9;
-  }
-}
-
-.bubble-options, .bubble-options-slope {
-  .all, .all-slope {
-    color: darken(@light-gray,30%);
-    border: darken(@light-gray,30%) 1px solid;
-    margin-right: 10px;
-    @media @mobile {
-      margin-right: 5px;
-    }
-    &.selected {
-      background: darken(@light-gray,30%);
-      color: white;
-    }
-    &:hover {
-      background: darken(@light-gray,30%);
-      color: white;
-    }
-  }
-  .men-slope {
-    color: darken(@men,15%);
-    border: darken(@men,15%) 1px solid;
-    margin-right: 10px;
-    @media @mobile {
-      margin-right: 5px;
-    }
-    &.selected {
-      color: white;
-      background: darken(@men,15%);
-    }
-    &:hover {
-      color: white;
-      background: darken(@men,15%);
-    }
-  }
-  .men {
-    color: darken(@men-gray,15%);
-    border: darken(@men-gray,15%) 1px solid;
-    margin-right: 10px;
-    @media @mobile {
-      margin-right: 5px;
-    }
-    &.selected {
-      color: white;
-      background: darken(@men-gray,15%);
-    }
-    &:hover {
-      color: white;
-      background: darken(@men-gray,15%);
-    }
-  }
-  .women, .women-slope {
-    color: darken(@women,18%);
-    border: darken(@women,18%) 1px solid;
-    &.selected {
-      color: white;
-      background: darken(@women,18%);
-    }
-    &:hover {
-      color: white;
-      background: darken(@women,18%);
-    }
-  }
-  .origin {
-    color: darken(@origin,15%);
-    border: darken(@origin,15%) 1px solid;
-    margin-right: 10px;
-    @media @mobile {
-      margin-right: 5px;
-    }
-    &.selected {
-      color: white;
-      background: darken(@origin,15%);
-    }
-    &:hover {
-      color: white;
-      background: darken(@origin,15%);
-    }
-  }
-  .gender {
-    color: darken(@gender,15%);
-    border: darken(@gender,15%) 1px solid;
-    margin-right: 10px;
-    @media @mobile {
-      margin-right: 5px;
-    }
-    &.selected {
-      color: white;
-      background: darken(@gender,15%);
-    }
-    &:hover {
-      color: white;
-      background: darken(@gender,15%);
-    }
-  }
-  .sfrunners {
-    color: darken(@sfrunners,15%);
-    border: darken(@sfrunners,15%) 1px solid;
-    margin-right: 10px;
-    @media @mobile {
-      margin-right: 5px;
-    }
-    &.selected {
-      color: white;
-      background: darken(@sfrunners,15%);
-    }
-    &:hover {
-      color: white;
-      background: darken(@sfrunners,15%);
-    }
-  }
-  .foreign {
-    color: darken(@foreign,15%);
-    border: darken(@foreign,15%) 1px solid;
-    margin-right: 10px;
-    @media @mobile {
-      margin-right: 5px;
-    }
-    &.selected {
-      color: white;
-      background: darken(@foreign,15%);
-    }
-    &:hover {
-      color: white;
-      background: darken(@foreign,15%);
-    }
-  }
-  .all, .gender, .origin, .sfrunners, .foreign, .men, .women, .all-slope, .men-slope, .women-slope {
-    cursor: pointer;
-    font-size: 15px;
-    display: inline-block;
-    width: 180px;
-    padding: 5px;
-    font-family: @block-graphics;
-    border-radius: 4px;
-    // background: @light-gray;
-    @media @mobile {
-      width: 145px;
-      margin-bottom: 5px;
-      font-size: 13px;
-    }
-  }
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.displaynone {
-  path {
-    visibility: hidden;
-  }
-}
-
-.controls {
-  padding-top: 10px;
-  text-align: center;
-  display: block;
-  // padding-left: 20px;
-}
-.start, .pause {
-  border-radius: 7px;
-  display: inline-block;
-  font-size: 14px;
-  cursor: pointer;
-  color: @dark-blue;
-  background: @light-gray;
-  padding: 5px 10px 4px 10px;
-
-  &:hover {
-    background: @dark-blue;
-    color: white;
-  }
-
-  &.selected {
-    color: @black;
-    cursor: default;
-    background: @dark-blue;
+  .entry {
+    padding-bottom: 10px;
   }
 }
