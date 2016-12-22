@@ -90,6 +90,19 @@ files in the ``src/js`` file will cause the browserify to rebuild
 changes are baked out into the ``build`` folder for publishing, but also
 served up via the local development server on port 8000.
 
+Cloning an existing repo
+------------------------
+
+Navigate to a directory in which you want the new folder and type:
+
+.. code:: sh
+
+    git clone https://github.com/sfchronicle/quiz-template.git
+    
+Then type: ``npm install``
+
+
+
 Data and Templating
 -------------------
 
