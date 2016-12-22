@@ -34,8 +34,7 @@ Then you'll need to find your ``.grunt-init`` folder:
     - ``defaults write com.apple.finder AppleShowAllFiles YES``
     - ``killall Finder``
 
-Clone this repo into it using the
-following command:
+Clone this repo into it using the following command:
 
 .. code:: sh
 
