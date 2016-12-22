@@ -22,6 +22,7 @@ Installation
 ------------
 
 Before you begin, you'll need to do the following installations:
+
 - XCode: this is free and you can find it in the Apple App Store if you have a Mac
 
 - Homebrew: ``ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"``
