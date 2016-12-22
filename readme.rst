@@ -23,15 +23,24 @@ Installation
 
 Before you begin, you'll need to do the following installations:
 - XCode: this is free and you can find it in the Apple App Store if you have a Mac
+
 - Homebrew: ``ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"``
+
 - NodeJS/NPM: ``brew install node``
+
 - The Grunt command line utility: ``npm install -g grunt-cli``
+
 - Grunt project scaffolding: ``npm install -g grunt-init``
 
+
 Then you'll need to find your ``.grunt-init`` folder:
+
 - This is located under ``/Users/USERNAME/.grunt-init``
+
 - If your computer is not showing hidden files, on a Mac, execute the following commands:
+
     - ``defaults write com.apple.finder AppleShowAllFiles YES``
+    
     - ``killall Finder``
 
 Clone this repo into it using the following command:
