@@ -24,6 +24,9 @@ body {
   font-family: @body;
 }
 
+iframe{
+  border: none !important;
+}
 main {
   display: block;
 }
@@ -101,13 +104,11 @@ li {
 // interactives styles ------------------------------------
 
 .hed {
-  font-weight: bold;
   font-size: 20px;
   margin-top: 10px;
   margin-bottom: 5px;
   text-align: center;
   font-family: @block-graphics;
-  font-weight: bold;
   @media @mobile {
     padding: 0 10px;
   }
@@ -115,7 +116,6 @@ li {
 .chart-hed {
   font-size: 28px;
   text-align: center;
-  font-weight: bold;
   padding-bottom: 5px;
   @media @mobile {
     margin: 0 10px;
@@ -531,7 +531,6 @@ header {
     padding: 10px;
   }
   .small {
-    font-weight: bold;
     font-size: 15px;
   }
   img {
