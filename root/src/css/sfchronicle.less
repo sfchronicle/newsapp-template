@@ -16,12 +16,13 @@ body {
   margin: 0;
   //remove 300ms click delay in Safari, AKA still the worst
   touch-action: manipulation;
-
   background-color: @white;
   font-size: @base-font;
   line-height:@line-height;
   color: @black;
   font-family: @body;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 iframe{
@@ -154,7 +155,7 @@ li {
   font-size: 12px;
   // color: @white;
   font-style: italic;
-  font-family: @;
+  font-family: @med-graphics;
   @media @tablet {
     padding: 10px 20px;
   }

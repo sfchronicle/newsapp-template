@@ -7,6 +7,66 @@
     var omni_publicationDate = "<%= json.project.date %> 00:00:00";
     var omni_authorName = "<%= json.project.author %>";
     var omni_authorTitle = "San Francisco Chronicle staff";
+    var HDN = HDN || {};
+    HDN.dataLayer = HDN.dataLayer || {};
+
+    // HDN.dataLayer object for content and href data
+    HDN.dataLayer.content = HDN.dataLayer.content || {};
+    HDN.dataLayer.href = HDN.dataLayer.href || {};
+    HDN.dataLayer.content.title = "<%= json.project.title %>";
+    HDN.dataLayer.content.subtitle = "";
+    HDN.dataLayer.content.objectId = "";
+    HDN.dataLayer.content.objectType = "channel";
+    HDN.dataLayer.content.sectionPath = ['<%= json.project.hearst_category %>', 'Special Projects'];
+    HDN.dataLayer.content.pubDate = "<%= json.project.date %> 00:00:00";
+    HDN.dataLayer.content.wordCount = "";
+    HDN.dataLayer.content.keywords = [];
+    HDN.dataLayer.content.keySubjects = [];
+    HDN.dataLayer.content.keyPersons = [];
+    HDN.dataLayer.content.keyOrganizations = [];
+    HDN.dataLayer.content.keyConcepts = [];
+    HDN.dataLayer.content.keyCategories = [];
+    HDN.dataLayer.content.keyPlaces = [];
+    HDN.dataLayer.content.keyNlpPerson = [];
+    HDN.dataLayer.content.keyNlpLocation = [];
+    HDN.dataLayer.content.keyNlpOrganization = [];
+    HDN.dataLayer.content.keyNlpEvent = [];
+    HDN.dataLayer.content.keyNlpWorkOfArt = [];
+    HDN.dataLayer.content.keyNlpConsumerGood = [];
+    HDN.dataLayer.content.keyNlpOther = [];
+    HDN.dataLayer.content.keyNlpUnknown = [];
+
+    // HDN.dataLayer object for source information
+    HDN.dataLayer.source = HDN.dataLayer.source || {};
+    HDN.dataLayer.source.authorName = "<%= json.project.author %>";
+    HDN.dataLayer.source.authorTitle = "San Francisco Chronicle Staff";
+    HDN.dataLayer.source.originalSourceSite = "SF";
+    HDN.dataLayer.source.publishingSite = "premiumsfgate";
+    HDN.dataLayer.source.sourceSite = "sfgate";
+    
+    // HDN.dataLayer object for sharing information
+    HDN.dataLayer.sharing = HDN.dataLayer.sharing || {};
+    HDN.dataLayer.sharing.openGraphUrl = "<%= json.project.url + json.project.slug%>";
+    HDN.dataLayer.sharing.openGraphType = "article";
+
+    HDN.dataLayer.href.pageUrl = "<%= json.project.url + json.project.slug%>";
+    HDN.dataLayer.href.canonicalUrl = "<%= json.project.url + json.project.slug%>";
+    HDN.dataLayer.href.pageUrlPath = window.location.pathname;
+    HDN.dataLayer.href.pageUrlPathFolders = window.location.pathname.replace(/[A-Za-z0-9-_.]+$/, '');
+    HDN.dataLayer.href.pageUrlQueryParams = window.location.search.replace(/^\?/, '');
+    HDN.dataLayer.href.pageUrlHash = window.location.hash;
+
+    // HDN.dataLayer object for presentation information
+    HDN.dataLayer.presentation = HDN.dataLayer.presentation || {};
+    HDN.dataLayer.presentation.hasSlideshow = true;
+    HDN.dataLayer.presentation.hasSlideshowListView = false;
+    HDN.dataLayer.presentation.hasVideo = true;
+    HDN.dataLayer.presentation.hasInteractive = true;
+
+    // HDN.dataLayer object for paywall information
+    HDN.dataLayer.paywall = HDN.dataLayer.paywall || {};
+    HDN.dataLayer.paywall.premiumStatus = "isPremium";
+    HDN.dataLayer.paywall.premiumEndDate = "";
 </script>
 <!-- End Hearst analytics -->
 
