@@ -11,6 +11,7 @@
     "archieml": "^0.3.1",
     "async": "^2.2.0",
     "babelify": "^6.0.2",
+    "browser-pack-flat": "^3.0.5",
     "browserify": "^13.0.0",
     "chalk": "^1.0.0",
     "commonmark": "^0.24.0",
@@ -21,6 +22,7 @@
     "grunt": "^1.0.0",
     "grunt-contrib-connect": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",
+    "grunt-open": "^0.2.3",
     "html-entities": "^1.2.0",
     "htmlparser2": "^3.9.0",
     "less": "^2.6.1",
@@ -31,11 +33,7 @@
     "typogr": "^0.6.4"
   },
   "browser": {
-    "share": "./src/js/lib/share.min.js",
-    "angular": "angular/angular.min",
-    "jquery": "jquery/dist/jquery.min",
-    "leaflet": "leaflet/dist/leaflet.js",
-    "three": "three/three.min"
+    "share": "./src/js/lib/share.min.js"
   },
   "browserify": {
     "transform": [

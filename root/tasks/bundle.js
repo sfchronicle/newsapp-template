@@ -21,6 +21,7 @@ module.exports = function(grunt) {
 
     async.forEachOf(seeds, function(dest, src, c) {
       var b = browserify({ debug: mode == "dev" });
+      b.plugin(require("browser-pack-flat/plugin"));
       b.transform(babel);
 
       //make sure build/ exists

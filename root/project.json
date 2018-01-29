@@ -1,12 +1,12 @@
 {
-  "year":"2017",
+  "year":"2018",
   "title": "",
   "description": "",
   "seo_title": "",
   "author":"",
   "hearst_category":"",
-  "date":"2017-04-02",
-  "url": "http://projects.sfchronicle.com/2017/",
+  "date":"2018-01-02",
+  "url": "https://projects.sfchronicle.com/2018/",
   "slug": "SLUG-HERE-WITH-TRAILING-SLASH/",
   "twitter_text":"",
   "hashtag":"",
@@ -14,5 +14,6 @@
   "sheets": [],
   "docsID":"",
   "production": false,
-  "embedded": {%= embed %}
+  "embedded": {%= embed %},
+  "paywall":"meterA"
 }

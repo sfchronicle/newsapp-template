@@ -29,6 +29,10 @@ module.exports = function(grunt) {
       js: {
         files: ["src/js/**/*"], //everything, due to templating, GLSL, LESS, etc.
         tasks: ["bundle"]
+      },
+      src: {
+        files: ['src/assets/**/*'],
+        tasks: ['clean', 'static'],
       }
     }
   });

@@ -1,18 +1,16 @@
-<!-- Favicon -->
-<link rel="shortcut icon" href="http://www.sfchronicle.com/favicon.ico" type="image/x-icon">
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title><%= json.project.seo_title %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="__sync_contentCategory" content="<%= json.project.paywall %>">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <%= t.include("partials/_meta.html") %>
+    <%= !json.project.embedded ? t.include("partials/_paywall.html") : t.include("partials/_embedframe.html") %>
+  </head>
 
-<!-- BEGIN TWITTER SUMMARY CARD -->
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="<%= grunt.data.json.project.title %>">
-<meta name="twitter:site" content="@sfchronicle">
-<meta name="twitter:url" content="<%= grunt.data.json.project.url + grunt.data.json.project.slug%>">
-<meta name="twitter:image" content="<%= grunt.data.json.project.url + grunt.data.json.project.slug + grunt.data.json.project.image %>">
-<meta name="twitter:description" content="<%= grunt.data.json.project.description %>">
+  <%= !json.project.embedded ? "<body>" : "<body is='responsive-body'>" %>
 
-<!-- Social sharing meta -->
-<meta property="og:type" content="article">
-<meta property="og:title" content="<%= grunt.data.json.project.title %>">
-<meta property="og:site_name" content="The San Francisco Chronicle">
-<meta property="og:url" content="<%= grunt.data.json.project.url + grunt.data.json.project.slug %>">
-<meta property="og:image" content="<%= grunt.data.json.project.url + grunt.data.json.project.slug + grunt.data.json.project.image %>">
-<meta property="og:description" content="<%= grunt.data.json.project.description %>">
+  <%= t.include("partials/_nav.html") %>
