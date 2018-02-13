@@ -22,7 +22,6 @@
     "grunt": "^1.0.0",
     "grunt-contrib-connect": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",
-    "grunt-open": "^0.2.3",
     "html-entities": "^1.2.0",
     "htmlparser2": "^3.9.0",
     "less": "^2.6.1",
