@@ -18,4 +18,7 @@
 
 
   <script src="app.js" async></script>  
+  <% /* Lazyload any image by putting the real img src in the 'data-src' attribute
+  * The initializer here (plus the source file in _head.html) does the rest */ %>
+  <script>var LazyLoad = new LazyLoad();</script>  
 <%= t.include("partials/_footer.html") %>

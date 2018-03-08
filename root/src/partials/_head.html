@@ -7,6 +7,7 @@
     <meta name="__sync_contentCategory" content="<%= json.project.paywall %>">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="//projects.sfchronicle.com/shared/js/lazyload.js"></script>
     <%= t.include("partials/_meta.html") %>
     <%= !json.project.embedded ? t.include("partials/_paywall.html") : t.include("partials/_embedframe.html") %>
   </head>
