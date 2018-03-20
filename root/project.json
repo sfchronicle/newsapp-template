@@ -15,5 +15,6 @@
   "docsID":"",
   "production": false,
   "embedded": {%= embed %},
-  "paywall":"meterA"
+  "paywall":"meter",
+  "paywall_meta": 1
 }
