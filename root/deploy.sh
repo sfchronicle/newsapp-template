@@ -58,8 +58,8 @@ if [ -d "/Volumes/SFGextras/Projects/" ]; then
 		if [[ $REPLY =~ ^[Yy]$ ]]; then
 		  echo "User confirmed deployment. Starting..."
 		  echo "Removing any existing query strings..."
-		  replaceJS="s/\.js?.*?(?=(\"|\'))/\.js/g"
-		  replaceCSS="s/\.css?.*?(?=(\"|\'))/\.css/g"
+		  replaceJS="s/\.js\?.*?(?=(\"|\'))/\.js/g"
+		  replaceCSS="s/\.css\?.*?(?=(\"|\'))/\.css/g"
 		  perl -pi -e $replaceJS build/*.html
 		  perl -pi -e $replaceCSS build/*.html
 		  echo "Appending cache-busting strings..."
