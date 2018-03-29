@@ -12,7 +12,7 @@
   "hashtag":"",
   "image": "assets/social.jpg",
   "sheets": [],
-  "docsID":"",
+  "docsID": [],
   "production": false,
   "embedded": {%= embed %},
   "paywall":"meter",
