@@ -45,6 +45,13 @@ else
 	path="$2"
 fi
 
+if [ -d "build/" ]; then
+	echo -e "${GREEN}SUCCESS:${NC} Build folder exists for this project."
+else
+	echo -e "${RED}ERROR:${NC} No build folder exists in this project! (Did you run grunt?)"
+	echo "Exiting deploy script with error..."
+fi
+
 # Test if we can access the Projects folder
 if [ -d "/Volumes/SFGextras/Projects/" ]; then
   echo -e "${GREEN}SUCCESS:${NC} Accessed Projects folder."
