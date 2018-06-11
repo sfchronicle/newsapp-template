@@ -7,7 +7,8 @@
     <meta name="ispremium" content="<%= json.project.paywall_meta %>">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="//projects.sfchronicle.com/shared/js/lazyload.js"></script>
+    <% /* UNCOMMENT LAZYLOAD HERE AND IN FOOTER TO USE */ %>
+    <% /* <script src="//projects.sfchronicle.com/shared/js/lazyload.js"></script> */ %>
     <%= t.include("partials/_meta.html") %>
     <%= !json.project.embedded ? t.include("partials/_paywall.html") : t.include("partials/_embedframe.html") %>
   </head>
