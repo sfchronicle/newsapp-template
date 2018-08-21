@@ -15,4 +15,4 @@
 
   <%= !json.project.embedded ? "<body>" : "<body is='responsive-body'>" %>
 
-  <%= t.include("partials/_nav.html") %>
+  <%= !json.project.embedded ? t.include("partials/_nav.html") : "" %>
