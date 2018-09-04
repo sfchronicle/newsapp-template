@@ -67,21 +67,19 @@ if [ -d "/Volumes/SFGextras/Projects/" ]; then
 		  echo "Removing any existing query strings..."
 		  replaceJS="s/\.js\?.*?(?=(\"|\'))/\.js/g"
 		  replaceCSS="s/\.css\?.*?(?=(\"|\'))/\.css/g"
-		  perl -pi -e $replaceJS build/*.html
-		  perl -pi -e $replaceCSS build/*.html
+		  find build/ -name "*.html" -exec bash -c 'mv "$1" "${1%.html}".php' - '{}' \;
+		  echo "Replacing .html extension with .php"
+		  perl -pi -e $replaceJS `find build/ -name *.php`
+		  perl -pi -e $replaceCSS `find build/ -name *.php`
 		  echo "Appending cache-busting strings..."
 		  random=`date +%s`
 		  replaceJS="s/\.js/\.js?$random/g"
 		  replaceCSS="s/\.css/\.css?$random/g"
-		  perl -pi -e $replaceJS build/*.html
-		  perl -pi -e $replaceCSS build/*.html
+		  perl -pi -e $replaceJS `find build/ -name *.php`
+		  perl -pi -e $replaceCSS `find build/ -name *.php`
 		  echo "Uploading files to server..."
 		  cp -a build/. "/Volumes/SFGextras/Projects/$1/$path" &
 		  spinner
-		  echo "Change index.html to index.php on server"
-		  startpath="/Volumes/SFGextras/Projects/$1/$path/index.html"
-		  endpath="/Volumes/SFGextras/Projects/$1/$path/index.php"
-		  mv $startpath $endpath
 		  echo -e "${GREEN}DEPLOY COMPLETE.${NC} Exiting..."
 		else 
 			echo "INFO: User cancelled deployment. Exiting..."
