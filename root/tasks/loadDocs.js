@@ -1,133 +1,67 @@
-/*
-
-Uses the Google Drive API to parse Google Doc 
-with ArchieML generate JSON file
-
-Sheets must be "published to web" before they
-can be accessed by this task
-
-Run `grunt docs` to run task
-
-*/
-
-
+var { google } = require("googleapis");
 var async = require("async");
-var archieml = require('archieml');
-var htmlparser = require('htmlparser2');
-var Entities = require('html-entities').AllHtmlEntities;
-var url = require('url');
-var google = require('googleapis');
-var project = require("../project.json");
-var credentials = require( process.env.HOME + '/.credentials.json');
-
-
-
-var lowerCase = function(str) {
-  return str.replace(/\s+/g, '_').toLowerCase();
-};
-
+var os = require("os");
+var path = require("path");
+var { authenticate } = require("./googleauth");
 
 module.exports = function(grunt) {
 
-  grunt.registerTask('docs', 'Parses Google Doc and downloads as JSON', function() {
+  grunt.registerTask("docs", "Load Google Docs into the data folder", function() {
 
-    var docKeys = project.docsID;
-
-    if(!credentials.client_id || !credentials.secret_id) {
-      throw new Error('Missing client_id or secret_id');
-    };
-
-    if(!docKeys) {
-      throw new Error('Missing Google Doc ID');
-    };
-
-    var OAuth2 = google.auth.OAuth2;
-
-    oauth2Client = new OAuth2(credentials.client_id, credentials.secret_id);
-    gDrive = google.drive({ version: 'v3', auth: oauth2Client });
-    oauth2Client.setCredentials(credentials.refresh_token);
-
+    var config = grunt.file.readJSON("project.json");
+    var auth = null;
+    try {
+      auth = authenticate();
+    } catch (err) {
+      console.log(err);
+      return grunt.fail.warn("Couldn't load access token for Docs, try running `grunt google-auth`");
+    }
 
     var done = this.async();
 
-    async.each(docKeys, function(key) {
+    var drive = google.drive({ auth, version: "v3" });
 
-      gDrive.files.export({ fileId: key, mimeType: 'text/html'}, function (err, docHtml) {
-       
-        var handler = new htmlparser.DomHandler(function (error, dom) {
-          var tagHandlers = {
-            _base: function (tag) {
-              var str = '';
-              tag.children.forEach(function (child) {
-                if (func = tagHandlers[child.name || child.type]) str += func(child);
-              });
-              return str;
-            },
-            text: function (textTag) {
-              return textTag.data;
-            },
-            span: function (spanTag) {
-              return tagHandlers._base(spanTag);
-            },
-            p: function (pTag) {
-              return tagHandlers._base(pTag) + '\n';
-            },
-            a: function (aTag) {
-              var href = aTag.attribs.href;
-              if (href === undefined) return '';
+    /*
+     * Large document sets may hit rate limits; you can find details on your quota at:
+     * https://console.developers.google.com/apis/api/drive.googleapis.com/quotas?project=<project>
+     * where <project> is the project you authenticated with using `grunt google-auth`
+     */
+    async.eachLimit(
+      config.docs,
+      2, // adjust this up or down based on rate limiting
+      async function(fileId) {
+        var meta = await drive.files.get({ fileId });
+        var name = meta.data.name.replace(/\s+/g, "_") + ".docs.txt";
+        var body = await drive.files.export({ fileId, mimeType: "text/plain" });
+        var text = body.data.trim().replace(/\r\n/g, "\n");
+        // replace triple breaks with regular paragraph breaks
+        text = text.replace(/\n{3}/g, "\n\n");
+        // force fields to be lower-case
+        text = text.replace(/^[A-Z]\w+\:/m, w => w[0].toLowerCase() + w.slice(1));
+        // strip out footnotes from the end
+        var lines = text.split("\n");
+        var line;
+        var refs = [];
+        while (line = lines.pop()) {
+          var match = line.match(/^\[(\w+)\]|_(re)?assigned to.+_/i);
+          if (!match) {
+            lines.push(line);
+            break;
+          }
+          refs.push(match[1]);
+        }
+        text = lines.join("\n");
+        // remove the footnote references from the rest of the doc
+        refs = refs.filter(n => n);
+        if (refs.length) {
+          var replacer = new RegExp(`\\[(${refs.join("|")})\\]`, "g");
+          text = text.replace(replacer, "");
+        }
+        console.log(`Writing document as data/${name}`);
+        grunt.file.write(path.join("data", name), text);
+      },
+      done
+    );
 
-              // extract real URLs from Google's tracking
-              // from: http://www.google.com/url?q=http%3A%2F%2Fwww.sfchronicle.com...
-              // to: http://www.sfchronicle.com...
-              if (aTag.attribs.href && url.parse(aTag.attribs.href, true).query && url.parse(aTag.attribs.href, true).query.q) {
-                href = url.parse(aTag.attribs.href, true).query.q;
-              }
-
-              var str = '<a href="' + href + '">';
-              str += tagHandlers._base(aTag);
-              str += '</a>';
-              return str;
-            },
-            li: function (tag) {
-              return '* ' + tagHandlers._base(tag) + '\n';
-            }
-          };
-
-          ['ul', 'ol'].forEach(function (tag) {
-              tagHandlers[tag] = tagHandlers.span;
-          });
-          ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].forEach(function (tag) {
-              tagHandlers[tag] = tagHandlers.p;
-          });
-
-          var body = dom[0].children[1];
-          var parsedText = tagHandlers._base(body);
-
-          // Convert html entities into the characters as they exist in the google doc
-          var entities = new Entities();
-          parsedText = entities.decode(parsedText);
-
-          // Remove smart quotes from inside tags
-          parsedText = parsedText.replace(/<[^<>]*>/g, function (match) {
-            return match.replace(/”|“/g, '"').replace(/‘|’/g, "'");
-          });
-    
-          var parsed = archieml.load(parsedText);
-
-          gDrive.files.get({ fileId:key }, function (err, doc) {
-            var doc_title = doc.name;
-            var filename = "data/" + lowerCase(doc_title) + ".json";
-            grunt.file.write(filename, JSON.stringify(parsed, null, 2));
-          });
-
-        });
-
-        var parser = new htmlparser.Parser(handler);
-        parser.write(docHtml);
-        parser.done();
-        grunt.log.ok();
-        
-      });
-    }, done);
   });
-};
+}

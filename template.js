@@ -20,22 +20,24 @@ exports.template = function(grunt, init, done) {
     init.copyAndProcess(root, props, { noProcess: "src/assets/**" });
     grunt.file.mkdir("data");
 
-    //grab the github credentials from .credentials.json
-    var credentials = grunt.file.readJSON(homedir+"/.credentials.json");
+    //grab the github credentials from environment
+    // var credentials = grunt.file.readJSON(homedir+"/.credentials.json");
+    var github_username = process.env.GITHUB_USERNAME;
+    var github_access_token = process.env.GITHUB_ACCESS_TOKEN;
 
     //install node modules
     console.log("Installing Node modules...");
     exec("npm install --cache-min 999999", {encoding: 'utf-8'});
 
-    if (credentials && credentials.github_username && credentials.github_access_token){
+    if (github_username && github_access_token){
       //create github repo
       console.log("Creating private github repo '"+props.github_repo+"' for this project...");
       var createCmd = JSON.parse(exec("curl --request POST \
         --url https://api.github.com/orgs/sfchronicle/repos \
         --header 'accept: application/vnd.github.inertia-preview+json' \
-        --header 'authorization: Basic "+Buffer.from(credentials.github_username+":"+credentials.github_access_token).toString('base64')+"' \
+        --header 'authorization: Basic "+Buffer.from(github_username+":"+github_access_token).toString('base64')+"' \
         --header 'content-type: application/json' \
-        --data '{\"name\": \""+props.github_repo.replace("sfchronicle/","")+"\",\"description\": \"This is your first repository\",\"homepage\": \"https://www.sfchronicle.com\",\"private\": true,\"has_issues\": true,\"has_projects\": true,\"has_wiki\": true}'", 
+        --data '{\"name\": \""+props.github_repo.replace("sfchronicle/","")+"\",\"description\": \"This is your first repository\",\"homepage\": \"https://www.sfchronicle.com\",\"private\": true,\"has_issues\": true,\"has_projects\": true,\"has_wiki\": true}'",
         {encoding: 'utf-8'}
       ));
       console.log("Results: ", createCmd);
@@ -49,9 +51,9 @@ exports.template = function(grunt, init, done) {
         var protectCmd = JSON.parse(exec("curl --request PUT \
           --url https://api.github.com/repos/sfchronicle/"+props.github_repo.replace("sfchronicle/","")+"/branches/master/protection \
           --header 'accept: application/vnd.github.luke-cage-preview+json' \
-          --header 'authorization: Basic "+Buffer.from(credentials.github_username+":"+credentials.github_access_token).toString('base64')+"' \
+          --header 'authorization: Basic "+Buffer.from(github_username+":"+github_access_token).toString('base64')+"' \
           --header 'content-type: application/json' \
-          --data '{\"required_status_checks\": null,\"enforce_admins\": false,\"required_pull_request_reviews\": {\"dismissal_restrictions\": {}, \"dismiss_stale_reviews\": false, \"require_code_owner_reviews\": true, \"required_approving_review_count\": 1 },\"restrictions\": null}'", 
+          --data '{\"required_status_checks\": null,\"enforce_admins\": false,\"required_pull_request_reviews\": {\"dismissal_restrictions\": {}, \"dismiss_stale_reviews\": false, \"require_code_owner_reviews\": true, \"required_approving_review_count\": 1 },\"restrictions\": null}'",
           {encoding: 'utf-8'}
         ));
         console.log("Results: ", protectCmd);
@@ -65,7 +67,7 @@ exports.template = function(grunt, init, done) {
     } else {
       //no creds, but that's okay
       //they can start a repo the old school way
-      console.warn("WARNING: No GitHub credentials were found in ~/.credentials.json, so a repo was not created automatically -- create one manually on GitHub if needed");
+      console.warn("WARNING: No GitHub credentials were found in environment profile, so a repo was not created automatically -- create one manually on GitHub if needed");
     }
   });
 };

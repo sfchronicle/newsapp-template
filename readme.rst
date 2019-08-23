@@ -72,7 +72,7 @@ Navigate to a directory in which you want the new folder and type:
 .. code:: sh
 
     git clone https://github.com/sfchronicle/quiz-template.git
-    
+
 Then type: ``npm install``
 
 
@@ -81,7 +81,8 @@ Data and Templating
 -------------------
 
 The ``index.html`` template (and any other templates you choose to add
-to the project) are processed using Grunt's built in Lo-dash templating
+to the project) are processed using Grunt's built-in
+`Lo-dash templating <https://gruntjs.com/api/grunt.template>`_
 (HTML files starting with an ``_`` will be ignored). If you have any CSV
 files located in your ``data`` directory, these will be parsed and made
 available to your templates via the ``csv`` object (likewise, JSON files
@@ -89,9 +90,7 @@ in the ``data`` directory will be loaded to the ``json`` object, keyed
 by their filename). For example, maybe you have a CSV file located at
 ``data/ceoData.csv`` containing columns of data named "company", "name",
 "age", "gender", and "salary". We could write the following template in
-our ``index.html`` file to output this as an HTML table:
-
-::
+our ``index.html`` file to output this as an HTML table::
 
     <table>
       <thead>
@@ -108,17 +107,19 @@ our ``index.html`` file to output this as an HTML table:
         <% }); %>
     </table>
 
-In addition to on-disk data, you can set the template to import data
-from Google Sheets. This is a great option for collaborating with other
-newsroom staff, who may find Google Drive easier than Excel (especially
-when it comes to sharing files). To configure your project for import,
-open the ``project.json`` file and add your workbook key to the
-``sheets`` array found there. You'll also need to use the "Publish to
-Web" menu item in the Sheets UI (under file) to open up API access. Once
-both of those conditions are met, running ``grunt sheets`` will download
-the data from Google and cache it as JSON (one file per worksheet). As
-with CSV, the data will be stored as an array unless one of your columns
-is named "key," in which case it'll be stored as a hash table.
+In addition to on-disk data, you can set the template to import data from
+Google Sheets. This is a great option for collaborating with other newsroom
+staff, who may find Google Drive easier than Excel (especially when it comes
+to sharing files). You'll also need to run ``grunt google-auth`` to create a
+local OAuth token before you can talk to the API.
+
+You can do this by adding the sheets by their IDs: open
+the ``project.json`` file and add your workbook key to the ``sheets`` array
+found there.  Once the workbook key is set and you're authenticated, running
+``grunt sheets`` will download the data from Google and cache it as JSON (one
+file per worksheet). As with CSV, the data will be stored as an array unless
+one of your columns is named "key," in which case it'll be stored as a hash
+table.
 
 When placing data into your HTML via Lo-dash, there are some helper
 functions that are also made available via ``t``, as seen above with
@@ -126,56 +127,94 @@ functions that are also made available via ``t``, as seen above with
 should feel free to add your own. One that may prove useful is
 ``t.include()``, which will import another file into the template for
 processing. For example, we might import a header and footer with the
-following template:
+following template::
 
-::
-
-    <%= t.include("_head.html") %>
+    <%= t.include("partials/_head.html") %>
     This space intentionally left blank.
-    <%= t.include("_foot.html") %>
+    <%= t.include("partials/_foot.html") %>
+
+If you need to pull in article text, you can do so easily by placing a
+Markdown file with a ``.md`` extension in the project folder. These files will
+be treated as an `EJS-like template <http://lodash.com/docs/#template>`_ the
+same as HTML, so you can mix in data and generate code inline. However, rather
+than embedding HTML templates into your content, we strongly recommend using
+`ArchieML <http://archieml.org>`_ to load text and data chunks into your
+regular HTML templates. Any file with a ``.txt`` extension in the ``data``
+folder will be exposed as ``archieml.{filename}``. You can still use Markdown
+syntax in ArchieML files by using the ``t.renderMarkdown()`` function in your
+templates to process content::
+
+    <main class="article">
+      <%= t.renderMarkdown(archieml.story.intro) %>
+    </main>
+
+The template also includes a task (``docs``) for downloading Google Docs, much
+the same way as Sheets, and they'll be cached as ``.docs.txt`` in the data folder,
+and then loaded as ArchieML.
+
+Access to Docs requires your machine to have a
+Google OAuth token, which is largely the same as described in `this post
+<http://blog.apps.npr.org/2015/03/02/app-template-oauth.html>`_.
+You can obtain a token by running ``grunt google-auth``.
 
 Client-side Code
 ----------------
 
-**Note:** This template previously used RequireJS to build from AMD modules,
-but has switched over to CommonJS and Browserify in order to support
-asynchronous build processes. If you have old projects that you update to a
-new version of the template, you will need to either bring over the old
-``amd`` task (located in ``tasks/require.js``) or convert to the new CommonJS
-module style.
-
-Let's install jQuery and add it to our JavaScript bundle. From the
+Let's install Leaflet and add it to our JavaScript bundle. From the
 project folder, run the following command:
 
 .. code:: sh
 
-    npm install jquery --save
+    npm install leaflet --save
 
-By default, we would prefer to use NPM for dependencies, but Bower is also
-configured in the template. All libraries installed by Bower are placed in
-``src/js/lib`` by default, although this can be changed by editing the
-``.bowerrc`` file in the project folder root. Now we'll change
-``src/js/main.js`` to load jQuery:
+Now we'll change ``src/js/main.js`` to load Leaflet:
 
 .. code:: javascript
 
-    //by default, the template loads our sharing and ad modules
-    require("./lib/social");
-    require("./lib/ads");
-
-    var $ = require("jquery"); //load jQuery from an NPM module
-    console.log($, path);
+    var L = require("leaflet"); //load Leaflet from an NPM module
+    console.log(L);
 
 When we restart our dev server by running the ``grunt`` command, the
 ``bundle`` task will scan the dependencies it finds, starting in
 ``src/js/main.js``, and build those into a single file at ``build/app.js``
-(which is already included in the default HTML template). Browserify plugins
-for loading text files (with extensions ``.txt`` and ``.html``) and LESS files
-(for creating web components) are included with the template.
+(which is already included in the default HTML template).
 
-In a similar fashion, to add more CSS to our project, we would create a
-new LESS file in ``src/css``, then update our ``src/css/seed.less`` file
-to import it like so:
+The template also includes a number of smaller helper modules that we didn't
+think were important enough to publish to NPM. You can always load these
+modules with the relative path:
+
+.. code:: javascript
+
+    //this enables social widgets and ad code
+    //no return value is needed
+    require("./lib/social");
+
+Typically, you shouldn't need to load jQuery on a project, because these
+micro-modules cover most of its functionality, as well as some additional
+useful tools:
+
+* ``closest.js`` - Equivalent of jQuery.closest()
+* ``debounce.js`` - Equivalent of Underscore's debounce()
+* ``dot.js`` - Compile client-side EJS templates with the same syntax used by the build system
+* ``prefixed.js`` - Used to access prefixed features in other browsers (mostly used by other modules)
+* ``qsa.js`` - Equivalent to jQuery's DOM search functions
+
+Browserify plugins for loading text files (with extensions ``.txt`` and
+``.html``) and LESS files (for creating web components) are included with the
+template, so you can also just ``require()`` those files the same way you
+would other local modules. We often use this for our client-side templating:
+
+.. code:: javascript
+
+    //load the templating library preset
+    var dot = require("./lib/dot");
+
+    //get the template source and compile it
+    var template = dot.compile( require("./_tmpl.html") );
+
+In a similar fashion, to add more CSS to our project, we would create a new
+LESS file in ``src/css``, then update our ``src/css/seed.less`` file to import
+it like so:
 
 .. code:: less
 
@@ -189,6 +228,11 @@ conventions. Our page will be regenerated as we make changes as long as
 the default Grunt task is running, and the built-in live reload server
 will even refresh the page for us!
 
+Note that both the LESS and JS bundle tasks are designed to be easily
+extensible: if you need to output multiple bundles for separate pages (such as
+a primary page and a secondary embedded widget), you can add new seeds to
+these files relatively easily, and then share code between both bundles.
+
 What else does it do?
 ---------------------
 
@@ -199,80 +243,50 @@ including some tasks that do not run as a part of the normal build.
 Remember that you can use ``grunt --help`` to list all tasks included in
 the project.
 
--  ``csv`` - Load CSV files into the ``grunt.data.csv`` object for
-   templating
--  ``json`` - Load JSON files onto ``grunt.data.json``
--  ``sheets`` - Download data from Google Sheets and save as JSON files
--  ``docs`` - Parse Google Docs with ArchieML and save as JSON files
--  ``template`` - Load data files and process HTML templates
--  ``less`` - Compile LESS files into CSS
+-  ``archieml`` - Load text files onto ``grunt.data.archieml``
 -  ``bundle`` - Compile JS into the app.js file
--  ``publish`` - Push files to S3 or other endpoints
--  ``auth`` - Create an ``auth.json`` file from the AWS environment 
-   variables
+-  ``clean`` - Delete the build folder to start again from scratch
 -  ``connect`` - Start the dev server
--  ``watch`` - Watch various directories and perform partial builds when
-   they change
--  ``static`` - Run all generation tasks, but do not start the watches
-   or dev server
-
-The publish task deserves a little more attention. When you run ``grunt 
-publish``, it will read your AWS credentials from the standard AWS 
-environment variables (``AWS_ACCESS_KEY_ID`` and 
-``AWS_SECRET_ACCESS_KEY``), falling back on keys found in ``auth.json`` 
-(useful for Windows users without admin access). The bucket 
-configuration is loaded from ``project.json``. The task will then push 
-the contents of the ``build`` folder up to the stage bucket. If you want 
-to publish to live, you should run ``grunt publish:live``. Make sure 
-your files have been rebuilt first, either by running the default task 
-or by running the ``static`` task (``grunt static publish`` will do 
-both).
+-  ``copy`` - Copy all assets over to the build folder
+-  ``csv`` - Load CSV files onto ``grunt.data.csv``
+-  ``docs`` - Download Google Docs and save as .txt
+-  ``google-auth`` - Authorize against the Drive API for downloading private files from Google, such as Docs and Sheets files.
+-  ``json`` - Load JSON files onto ``grunt.data.json``
+-  ``less`` - Compile LESS files into CSS
+-  ``markdown`` - Load Markdown files onto ``grunt.data.markdown``
+-  ``sheets`` - Download data from Google Sheets and save as JSON files
+-  ``static`` - Run all generation tasks, but do not start the watches or dev server
+-  ``template`` - Load data files and process HTML templates
+-  ``watch`` - Watch various directories and perform partial builds when they change
 
 Where does everything go?
 -------------------------
 
 ::
 
-    ├── auth.json - authentication information for Google Sheets and other endpoints
-    ├── build
+    ├── build - generated, not checked in or included before the first build
     │   ├── assets
     │   ├── app.js
     │   ├── index.html
     │   └── style.css
-    ├── data - folder for all JSON/CSV data files
+    ├── data - folder for all JSON/CSV/ArchieML data files
     ├── Gruntfile.js
     ├── package.json - Node dependencies and metadata
     ├── project.json - various project configuration
     ├── src
-    │   ├── assets - files will be automatically copied to /build
-    │   ├── css
-    │   │   └── seed.less
+    │   ├── assets - files will be automatically copied to /build/assets
+    │   ├── css - LESS files
     │   ├── index.html
-    │   ├── partials - directory containing SF Chronicle boilerplate
+    │   ├── partials - directory containing boilerplate template sections
     │   └── js
     │       ├── main.js
-    │       └── lib - directory for Bower, SF site modules
+    │       └── lib - directory for useful micro-modules
     └── tasks - All Grunt tasks
-        ├── build.js
-        ├── bundle.js
-        ├── checklist.txt
-        ├── clean.js
-        ├── connect.js
-        ├── copyAssets.js
-        ├── cron.js
-        ├── less.js
-        ├── loadCSV.js
-        ├── loadDocs.js
-        ├── loadJSON.js
-        ├── loadSheets.js
-        ├── markdown.js
-        ├── state.js
-        └── watch.js
 
 How do I extend the template?
 -----------------------------
 
-The news app template is just a starting place for projects, and should
+The interactive template is just a starting place for projects, and should
 not be seen as a complete end-to-end solution. As you work on a project,
 you may need to extend it with tasks to do specialized build steps, copy
 extra files, or load network resources. Here are a few tips on how to go
@@ -300,6 +314,11 @@ about extending the scaffolding on a per-project basis:
 Technicalities
 --------------
 
-This template is licensed under the MIT License, so you are free to do whatever you want with it. If you update or improve the Grunt tasks contained inside, we'd love to hear from you.
+This template is licensed under the MIT License, so you are free to do
+whatever you want with it. If you update or improve the Grunt tasks contained
+inside, we'd love to hear from you.
 
-By default, the projects generated by this template are licensed under the GPLv3, and we whole-heartedly recommend its usage. However, given that the template itself is MIT-licensed, you are free to replace ``root/license.txt`` with the legal text of your choice, or remove it entirely.
+By default, the projects generated by this template are licensed under the
+GPLv3, and we whole-heartedly recommend its usage. However, given that the
+template itself is MIT-licensed, you are free to replace ``root/license.txt``
+with the legal text of your choice, or remove it entirely.

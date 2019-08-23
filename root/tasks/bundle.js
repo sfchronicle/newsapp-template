@@ -15,17 +15,17 @@ module.exports = function(grunt) {
     var done = this.async();
 
     //specify starter files here - if you need additionally built JS, just add it.
-    var seeds = {
-      "./src/js/main.js": "build/app.js"
-    };
+    var config = grunt.file.readJSON("project.json");
+    var seeds = config.scripts;
 
     async.forEachOf(seeds, function(dest, src, c) {
       var b = browserify({ debug: mode == "dev" });
       b.plugin(require("browser-pack-flat/plugin"));
-      b.transform(babel, { global: true, presets: [
-        ["env", {
-          targets: { browsers: ["ie >= 10", "safari >= 8"]},
-          loose: true
+      b.transform("babelify", { global: true, presets: [
+        ["@babel/preset-env", {
+          targets: { browsers: ["safari >= 11"]},
+          loose: true,
+          modules: false
         }]
       ]});
 
@@ -53,7 +53,7 @@ module.exports = function(grunt) {
         var sourcemap = grunt.file.readJSON(mapFile);
         sourcemap.sources = sourcemap.sources.map(function(s) { return s.replace(/\\/g, "/") });
         grunt.file.write(mapFile, JSON.stringify(sourcemap, null, 2));
-        
+
         c();
       });
     }, done);

@@ -11,12 +11,13 @@ Standard configuration from grunt-contrib-watch:
 module.exports = function(grunt) {
 
   grunt.loadNpmTasks("grunt-contrib-watch");
+  grunt.loadNpmTasks('grunt-browser-sync');
 
   grunt.config.merge({
     watch: {
       options: {
         spawn: false,
-        livereload: true
+        livereload: grunt.option("reload-port") * 1 || 35739
       },
       less: {
         files: ["src/**/*.less"],
@@ -29,10 +30,21 @@ module.exports = function(grunt) {
       js: {
         files: ["src/js/**/*"], //everything, due to templating, GLSL, LESS, etc.
         tasks: ["bundle"]
-      },
-      src: {
-        files: ['src/assets/**/*'],
-        tasks: ['clean', 'static'],
+      }
+    },
+    browserSync: {
+      dev: {
+        bsFiles: {
+          src: [
+            'build/style.css',
+            'build/index.html',
+            'build/app.js'
+          ]
+        },
+        options: {
+          watchTask: true,
+          server: './build'
+        }
       }
     }
   });

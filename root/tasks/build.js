@@ -6,14 +6,20 @@ and loadSheets, which import data in a compatible way.
 */
 
 var path = require("path");
+var typogr = require("typogr");
 var template = require("./lib/template");
 
 module.exports = function(grunt) {
 
   var process = function(source, data, filename) {
     var fn = template(source, { imports: { grunt: grunt, require: require }, sourceURL: filename });
-    return fn(data);
+    var input = Object.create(data || grunt.data);
+    input.t = grunt.template
+    return fn(input);
   };
+
+  //expose this for other tasks to use
+  grunt.template.process = process;
 
   grunt.template.formatNumber = function(s) {
     s = s + "";
@@ -28,6 +34,13 @@ module.exports = function(grunt) {
   grunt.template.formatMoney = function(s) {
     s = grunt.template.formatNumber(s);
     return s.replace(/^(-)?/, function(_, captured) { return (captured || "") + "$" });
+  };
+
+  grunt.template.smarty = function(text) {
+    var filters = ["amp", "widont", "smartypants", "ord"];
+    filters = filters.map(k => typogr[k]);
+    var filtered = filters.reduce((t, f) => f(t), text);
+    return filtered;
   };
 
   grunt.template.include = function(where, data) {

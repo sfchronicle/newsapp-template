@@ -25,9 +25,7 @@ module.exports = function(grunt) {
     //ignore markdown files inside the JS folder that come from Bower or libraries
     var files = grunt.file.expand("src/**/*.md", "!src/js/**/*.md");
     grunt.data.markdown = {};
-
-    files.forEach(function(filename) {
-      var input = grunt.file.read(filename);
+    var render = grunt.template.renderMarkdown = function(input) {
       var parsed = reader.parse(input);
 
       var walker = parsed.walker();
@@ -45,17 +43,30 @@ module.exports = function(grunt) {
           previous = node;
         }
       }
-      //second pass, run Typogr on the text
-      walker = parsed.walker();
-      while (e = walker.next()) {
-        if (e.node && e.node.type == "Text") {
-          e.node.literal = typo.smartypants(e.node.literal);
-        }
-      }
 
-      var output = writer.render(parsed);
+      var rendered = writer.render(parsed);
+      return typo.smartypants(typo.widont(rendered)).replace(/&#8211;/g, "&mdash;");
+    };
+
+    files.forEach(function(filename) {
+      var input = grunt.file.read(filename);
       var sansExtension = path.basename(filename).replace(/\..*?$/, "");
-      grunt.data.markdown[sansExtension] = output;
+
+      //define these as getters, so that templating can be processed out-of-order at runtime
+
+      Object.defineProperty(grunt.data.markdown, sansExtension, {
+        get: function() {
+          //run this through the template system
+          input = grunt.template.process(input);
+          var output = render(input);
+
+          //strip HTML block hack
+          output = output.replace(/\<\?|\?\>/g, "");
+          return output;
+        }
+      });
+
+
     });
 
   });
