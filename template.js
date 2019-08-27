@@ -15,6 +15,9 @@ exports.template = function(grunt, init, done) {
     init.prompt("embed",'false'),
     init.prompt("github_repo", "sfchronicle/" + here)
   ], function(err, props) {
+    //get the latest template
+    exec("rm -rf ~/.grunt-init/newsapp && git clone git@github.com:sfchronicle/newsapp-template.git ~/.grunt-init/newsapp");
+
     //add environment variables, dynamic properties
     var root = init.filesToCopy(props);
     init.copyAndProcess(root, props, { noProcess: "src/assets/**" });
