@@ -1,41 +1,62 @@
-//defensive coding
-* {
-  //border-box, you're the best
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  box-sizing: border-box;
-
-  //Safari, you're the worst
-  -webkit-tap-highlight-color: transparent;
+//accessibility styles from https://github.com/mike-engel/a11y-css-reset/
+*:focus:not(:focus-visible),
+*::before:focus:not(:focus-visible),
+*::after:focus:not(:focus-visible) {
+  outline: none;
 }
 
-html{
-  //remove 300ms click delay in Safari, AKA still the worst
+/* prettier-ignore */
+@media(prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+//defensive coding
+html {
+  //remove 300ms click delay in Safari, the worst
   touch-action: manipulation;
+  //border-box, you're the best
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  //Safari, AKA still the worst
+  -webkit-tap-highlight-color: transparent;
+  //border-box, you're still the best
+  box-sizing: inherit;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  min-height: 100%;
+  width: 100%;
 }
 
 //elements
 body {
-  padding: 0;
-  margin: 0;
   background-color: @white;
   font-size: @base-font;
-  line-height:@line-height;
+  line-height: @line-height;
   color: @black;
   font-family: @body;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-iframe{
+iframe {
   border: none !important;
 }
-main {
-  display: block;
-}
 
-.container {
+main {
   margin-top: 37px;
 }
 
@@ -81,8 +102,8 @@ hr {
 }
 
 p {
-  max-width: 730px;
-  margin: auto;
+  max-width: 760px;
+  // margin: auto;
   padding: 0 15px;
   margin-bottom: 1em;
 
@@ -272,19 +293,61 @@ text {
 
 // sticky navigation bar -------------------------------
 
-.fixed {
+nav {
+  background: @white;
+  overflow: visible;
+  opacity: 0.9;
+  -webkit-box-shadow: 0 0 6px 0 @dark-gray;
+  -moz-box-shadow: 0 0 6px 0 @dark-gray;
+  box-shadow: 0 0 6px 0 @dark-gray;
+
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 99;
   left: 0;
   height: 37px;
+
+  a {
+    text-decoration:none;
+  }
+
+  .logo {
+    float: left;
+    padding: 6px 0 0 8px;
+    margin: 0;
+      img {
+       vertical-align: text-bottom;
+       width:180px;
+      }
+      @media (max-width:490px) {
+        display: none;
+      }
+  }
+  .mobile-logo {
+    display: none;
+     @media (max-width:490px) {
+       display: inline;
+     }
+    img {
+      height: 16px;
+      vertical-align: baseline;
+
+    }
+  }
+
+  &::after {
+    clear: both;
+    content: " ";
+    display: block;
+  }
 }
 
 .link {
   padding: 5px 10px 0 7px;
   vertical-align: 3px;
   font-size: 18px;
+  letter-spacing: .05em;
   font-family: @body;
   cursor: pointer;
 
@@ -330,50 +393,6 @@ text {
     display:none;
   }
 }
-
-header {
-  background: @white;
-  overflow: visible;
-  opacity: 0.9;
-  -webkit-box-shadow: 0 0 6px 0 @dark-gray;
-  -moz-box-shadow: 0 0 6px 0 @dark-gray;
-  box-shadow: 0 0 6px 0 @dark-gray;
-
-  a {
-    text-decoration:none;
-  }
-
-  .logo {
-    float: left;
-    padding: 6px 0 0 8px;
-    margin: 0;
-      img {
-       vertical-align: text-bottom;
-       width:180px;
-      }
-      @media (max-width:490px) {
-        display: none;
-      }
-  }
-  .mobile-logo {
-    display: none;
-     @media (max-width:490px) {
-       display: inline;
-     }
-    img {
-      height: 16px;
-      vertical-align: baseline;
-
-    }
-  }
-
-  &::after {
-    clear: both;
-    content: " ";
-    display: block;
-  }
-}
-
 
 // photo styles ----------------------------------------
 

@@ -1,24 +1,19 @@
 <%= t.include("partials/_head.html") %>
 
-  
+<main>
+  <header>
+    <h1>Headline TKTKTKT</h1>
+    <h3>subhead tktktkt</h3>
+    <h6>dateline byline tktktkt</h6>
+  </header>
+  <article>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde, assumenda explicabo laborum voluptatum adipisci eligendi! Error hic, amet facere maxime cumque, nemo molestiae sequi, vel deserunt labore eligendi itaque sit?</p>
+  </article>
+</main>
 
-
-  
-
-
-
-  <div class="container">
-    <p>Content goes here...</p>
-  </div>
-
-  
-
-
-
-
-
-  <script src="app.js" async></script>  
-	<%= !json.project.embedded ? t.include("partials/_footer.html") : "" %>
+<script src="app.js" async></script>
+<%= !json.project.embedded ? t.include("partials/_footer.html") : "" %>
 
 </body>
+
 </html>

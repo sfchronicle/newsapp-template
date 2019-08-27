@@ -6,6 +6,9 @@ Run the LESS compiler against seed.less and output to style.css.
 
 module.exports = function(grunt) {
 
+  var postcss = require("postcss");
+  var autoprefixer = require("autoprefixer");
+  var cssnano = require("cssnano");
   var async = require("async");
   var less = require("less");
 
@@ -15,7 +18,7 @@ module.exports = function(grunt) {
 
   var options = {
     paths: ["src/css"],
-    plugins: [npmImporter]
+    plugins: [npmImporter],
   };
 
   grunt.registerTask("less", "Compile styles from src/css/seed.less", function() {
@@ -36,7 +39,13 @@ module.exports = function(grunt) {
         if (err) {
           grunt.fail.fatal(err.message + " - " + err.filename + ":" + err.line);
         } else {
-          grunt.file.write(dest, result.css);
+          var styles = result.css;
+          postcss([autoprefixer, cssnano]).process(styles, {from: "undefined"}).then(result => {
+            result.warnings().forEach(warn => {
+              console.warn(warn.toString())
+            })
+            grunt.file.write(dest, result.css);
+          })
         }
         c();
       });

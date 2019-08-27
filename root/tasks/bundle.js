@@ -20,7 +20,7 @@ module.exports = function(grunt) {
 
     async.forEachOf(seeds, function(dest, src, c) {
       var b = browserify({ debug: mode == "dev" });
-      b.plugin(require("browser-pack-flat/plugin"));
+      b.plugin(require("tinyify"));
       b.transform("babelify", { global: true, presets: [
         ["@babel/preset-env", {
           targets: { browsers: ["safari >= 11"]},
