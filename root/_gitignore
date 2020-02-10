@@ -5,3 +5,4 @@ temp
 npm-debug.log
 src/js/lib/*/**
 data
+/public_export
