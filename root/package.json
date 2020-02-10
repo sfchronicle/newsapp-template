@@ -50,5 +50,11 @@
       "./tasks/lib/browserify-less",
       "./tasks/lib/browserify-text"
     ]
+  },
+  "scripts": {
+    "deploy:git": "func() { tasks/pre-build.sh \"$1\" && grunt static && tasks/post-build.sh; }; func",
+    "auth": "tasks/googleauth.js",
+    "docs": "tasks/google-docs.js",
+    "sheets": "tasks/google-sheets.js"
   }
 }
