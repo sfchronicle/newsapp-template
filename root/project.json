@@ -18,10 +18,15 @@
   "twitter_text": "",
   "hashtag": "",
   "image": "assets/social.jpg",
-  "sheets": [],
-  "docs": [],
   "production": false,
   "embedded": {%= embed %},
   "paywall": "meter",
-  "paywall_meta": 1
+  "paywall_meta": 1,
+  "PROJECT": {
+    "SUBFOLDER": "2020",
+    "SLUG": "test-local",
+    "PROJECT_TYPE": "node"
+  },
+  "sheets": [],
+  "docsID": []
 }
