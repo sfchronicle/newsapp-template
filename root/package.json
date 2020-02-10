@@ -38,6 +38,7 @@
     "shelljs": "^0.8.3",
     "through2": "^3.0.1",
     "tinyify": "^2.5.1",
+    "tslib": "^1.10.0",
     "typogr": "^0.6.4"
   },
   "browser": {
