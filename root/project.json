@@ -5,7 +5,6 @@
   "scripts": {
     "src/js/main.js": "build/app.js"
   },
-  "year": "2018",
   "title": "",
   "description": "",
   "seo_title": "",
